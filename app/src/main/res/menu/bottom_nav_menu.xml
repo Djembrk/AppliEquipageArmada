@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Home"
-        android:icon="@drawable/ic_baseline_home_24"
-        android:id="@+id/home"/>
     
-    <item android:title="QRCode Scanner"
+    <item android:title="@string/qrcode_scanner"
         android:icon="@drawable/ic_baseline_qr_code_scanner_24"
         android:id="@+id/scanner"/>
 
-    <item android:title="Compteur Visiteurs"
+    <item android:title="@string/home"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:id="@+id/home"/>
+
+    <item android:title="@string/compteur_visiteurs"
         android:icon="@drawable/ic_baseline_person_add_24"
         android:id="@+id/ajouter"/>
+
+
 </menu>
