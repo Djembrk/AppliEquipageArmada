@@ -11,17 +11,20 @@
     tools:context=".CompteurFragment">
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
-        android:text="1"
-        android:textSize="120sp" />
-
-    <LinearLayout
         android:id="@+id/counterTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:layout_marginTop="40dp"
+        android:text="25"
+        android:textSize="120sp" />
+
+    <LinearLayout
+        android:layout_below="@+id/counterTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:orientation="horizontal"
         android:layout_marginTop="80dp">
 
@@ -38,7 +41,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Reset"
-            android:textSize="50sp" />
+            android:textSize="40sp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            />
 
         <Button
             android:id="@+id/plusBtn"
