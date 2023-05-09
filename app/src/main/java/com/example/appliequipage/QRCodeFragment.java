@@ -28,13 +28,13 @@ public class QRCodeFragment extends Fragment {
         btn_scan = view.findViewById(R.id.btn_scan);
         // Configuration d'un listener sur le bouton "btn_scan" qui appelle la méthode "scanQR" lorsque le bouton est cliqué
         btn_scan.setOnClickListener(v-> {
-            scanQR();
+            scanQR(barLauncher);
         });
         return view;
     }
 
     // Méthode qui configure les options pour la numérisation de code QR
-    void scanQR() {
+    void scanQR(ActivityResultLauncher<ScanOptions> barLauncher) {
         ScanOptions options = new ScanOptions();
         options.setPrompt("Volumn up to flash on ");
         // Bruit emis lors du scan du qrcode

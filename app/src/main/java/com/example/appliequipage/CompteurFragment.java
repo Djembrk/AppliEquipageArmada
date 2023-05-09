@@ -1,5 +1,7 @@
 package com.example.appliequipage;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+
+import java.sql.SQLException;
 
 public class CompteurFragment extends Fragment {
 
@@ -35,25 +39,49 @@ public class CompteurFragment extends Fragment {
 
         resetBtn = (Button) view.findViewById(R.id.resetBtn);
         resetBtn.setOnClickListener(clickListener);
-        
-        initCounter();
 
         return view;
     }
 
     private void initCounter() {
-        counter = 0;
-        counterTxt.setText(counter + "");
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+        builder.setTitle("Réinitialiser");
+        builder.setMessage("Êtes-vous sûr de vouloir réinitialiser le compteur?");
+
+        builder.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                counter = 0;
+                counterTxt.setText(String.valueOf(counter));
+            }
+        });
+
+        builder.setNegativeButton("Non", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // ne rien faire
+            }
+        });
+
+        AlertDialog dialog = builder.show();
+
     }
 
-    private void plusCounter(){
+    private void plusCounter() throws SQLException {
         counter++;
         counterTxt.setText(counter + "");
+        DatabaseHelper.updateCounter(counter);
     }
 
-    private void minusCounter(){
-        counter--;
-        counterTxt.setText(counter + "");
+    private void minusCounter() throws SQLException {
+        if (counter > 0){
+            counter--;
+            counterTxt.setText(String.valueOf(counter));
+            DatabaseHelper.updateCounter(counter);
+        }
+
     }
 
     private View.OnClickListener clickListener = new View.OnClickListener() {
@@ -61,10 +89,18 @@ public class CompteurFragment extends Fragment {
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.minusBtn:
-                minusCounter();
-                break;
+                    try {
+                        minusCounter();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    break;
                 case R.id.plusBtn:
-                    plusCounter();
+                    try {
+                        plusCounter();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case R.id.resetBtn:
                     initCounter();
